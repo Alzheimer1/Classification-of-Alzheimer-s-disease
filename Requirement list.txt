@@ -2,4 +2,4 @@ MKLpy
 Pytorch
 Scikit-learn
 Matplotlib
-pandas
+Pandas
