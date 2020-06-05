@@ -64,7 +64,7 @@ k55 = [pairwise.homogeneous_polynomial_kernel(X_te_S, X_tr_S, degree=d) for d in
 k6 = [pairwise.homogeneous_polynomial_kernel(X_tr_D, degree=d) for d in range(5)]
 k66 = [pairwise.homogeneous_polynomial_kernel(X_te_D, X_tr_D, degree=d) for d in range(5)]
 ##################################################################################################
-K7 = (k1 + k2 + k3 + k4 + k5 + k6)
+# K7 = (k1 + k2 + k3 + k4 + k5 + k6)
 k8 = (k11 + k22 + k33 + k44 + k55 + k66)
 
 from MKLpy.algorithms import EasyMKL
@@ -90,7 +90,7 @@ best_results = {}
 for lam in [0, 0.0001, 0.0009, 0.001, 0.009, 0.01, 0.09, 0.1, 0.2, 0.9, 1]:
     base_learner = GridSearchCV(svm.SVC(probability=True), param_grid=param_grid, cv=cv, refit='AUC',
                                 error_score=0, pre_dispatch='1*n_jobs', n_jobs=1)
-    scores = cross_val_score(k7, y_tr_A, EasyMKL(learner=base_learner, lam=lam), n_folds=5, scoring='accuracy')
+    scores = cross_val_score(k1, y_tr_A, EasyMKL(learner=base_learner, lam=lam), n_folds=5, scoring='accuracy')
     print(lam, scores)
     acc = np.mean(scores)
     if not best_results or best_results['score'] < acc:
@@ -98,7 +98,7 @@ for lam in [0, 0.0001, 0.0009, 0.001, 0.009, 0.01, 0.09, 0.1, 0.2, 0.9, 1]:
 
 # EasyMKL-BASED
 #############################################################################################
-clf = EasyMKL(learner=base_learner, lam=best_results['lam']).fit(k7, y_tr_A)
+clf = EasyMKL(learner=base_learner, lam=best_results['lam']).fit(k1+k2+k3+k4+k5+k6, y_tr_A)
 print(clf)
 #############################################################################################
 # evaluate the solution
