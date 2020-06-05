@@ -90,7 +90,7 @@ best_results = {}
 for lam in [0, 0.0001, 0.0009, 0.001, 0.009, 0.01, 0.09, 0.1, 0.2, 0.9, 1]:
     base_learner = GridSearchCV(svm.SVC(probability=True), param_grid=param_grid, cv=cv, refit='AUC',
                                 error_score=0, pre_dispatch='1*n_jobs', n_jobs=1)
-    scores = cross_val_score(k1, y_tr_A, EasyMKL(learner=base_learner, lam=lam), n_folds=5, scoring='accuracy')
+    scores = cross_val_score(k1, y_tr_A, EasyMKL(learner=base_learner, lam=lam), cv=cv, n_folds=5, scoring='accuracy')
     print(lam, scores)
     acc = np.mean(scores)
     if not best_results or best_results['score'] < acc:
