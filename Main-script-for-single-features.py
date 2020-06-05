@@ -4,8 +4,7 @@ from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
 
 # load the dataset
-feature1 = pd.read_csv(
-    '/home/lfc/PycharmProjects/FRAG-MKL/ROI(5)/AD_vs_HC/AD_vs_HC_ROI_AV45.csv')
+feature1 = pd.read_csv('..............................')
 
 X1 = feature1.iloc[:, 1:].values
 y1 = feature1.iloc[:, 0].values
@@ -13,8 +12,8 @@ y1 = feature1.iloc[:, 0].values
 # Preprocess data
 from MKLpy.preprocessing import normalization, rescale_01
 
-X1 = rescale_01(X1)  # feature scaling in [0,1]
-X1 = normalization(X1)  # ||X_i||_2^2 = 1
+X1 = rescale_01(X1)
+X1 = normalization(X1)
 
 # # train/test
 X_train_A, X_test_A, y_train_A, y_test_A = train_test_split(X1, y1, test_size=0.3, random_state=42)
